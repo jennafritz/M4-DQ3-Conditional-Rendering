@@ -3,7 +3,20 @@ import MenuBar from '../components/MenuBar.js'
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
+  
+  constructor() {
+    super()
+    this.state = {
+      activatedButton: ''
+    }
+  }
 
+  handleClick = (event) => {
+    event.persist()
+    this.setState({
+      activatedButton: event.target.id
+    })
+  }
 
   render() {
 
@@ -17,7 +30,11 @@ class MainBox extends React.Component {
 
     return (
       <div>
-        <MenuBar />
+        <MenuBar handleClick={this.handleClick}/>
+        {this.state.activatedButton === 'profile' ? <Profile/> : null}
+        {this.state.activatedButton === 'photo' ? <Photos/> : null}
+        {this.state.activatedButton === 'cocktail' ? <Cocktails/> : null}
+        {this.state.activatedButton === 'pokemon' ? <Pokemon/> : null}
         {detailsToDisplay}
       </div>
     )
